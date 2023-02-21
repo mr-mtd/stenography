@@ -5,7 +5,7 @@ import numpy as np  #pip3 install numpy
 
 
 
-#Please forgive the sloppynes - I did this quick and havent cleaned up yet...
+#Please forgive the sloppiness - I did this quick and havent cleaned up yet...
 
 currentDir = os.path.dirname(os.path.abspath(__file__))
 filename = os.path.realpath("{0}/../../../resources/htsProgrammingChallenge2.png".format(currentDir))
@@ -23,14 +23,8 @@ if __name__ == '__main__':
 
     print("img pixel array size is: " + str(image_array.size))
 
-    tcounter = 0
-    for a in image_array:
-        tcounter = tcounter + 1
-        print("a: " + str(a))
 
-    print("tcounter finshed at count: " + str(tcounter));
 
-    print(image_array)
     # print( "inmg: " + (str(img)))
     #---------------------------------
     # col, row = img.size
@@ -56,11 +50,11 @@ if __name__ == '__main__':
 
     tempStr = ""
     counter = 0
-    #for the star coding challenge, we need to track the row index for each star.
+    # For the star coding challenge, we need to track the row index for each star.
     # Then, aside from the first star, each next stars value is ( valueOf(i) - valueOf(i-1))
     # such that the difference between the previous number is the actual ASCII number intended for that star
 
-    starRowIndexVals = []
+    star_row_index_vals = []
     for d in data:
 
         counter = counter + 1
@@ -73,30 +67,31 @@ if __name__ == '__main__':
 
         if d == 1:
             print("row counter /ASCII value for white star is: " + str(counter))
-            starRowIndexVals.append(counter)
+            star_row_index_vals.append(counter)
         #if counter == 100:
          #   counter = 0;
 
-    print("starRowIndexVals are" + str(starRowIndexVals));
+    print("starRowIndexVals are" + str(star_row_index_vals));
 
     #normally somewhere around 45 - original image is 46
-    print("total star count in image is: " + str(len(starRowIndexVals)))
+    print("total star count in image is: " + str(len(star_row_index_vals)))
 
 
-    dynamicOriginalToMidStarList = starRowIndexVals.copy()
+    dynamicOriginalToMidStarList = star_row_index_vals.copy()
+    
 
 #easier way here
 
     shiftedAsciiStarValsEasy = []
     counter2 = 0
-    for star in starRowIndexVals:
+    for star in star_row_index_vals:
         if(counter2 == 0):
             counter2 = counter2 + 1
             shiftedAsciiStarValsEasy.append(star);
             continue
         elif(counter2 == 1):
             counter2 = counter2 + 1
-            tempStar = star - starRowIndexVals[int(counter2)-2]
+            tempStar = star - star_row_index_vals[int(counter2)-2]
             if tempStar < 0:
                 tempStar = int(tempStar) * -1
             shiftedAsciiStarValsEasy.append(tempStar)
@@ -106,7 +101,7 @@ if __name__ == '__main__':
             #Start 3, which is currntly at say 24, needs to compare against star 2 AFTER star 2 has made its adjustment
             # from star 1. Thus, we start to pull from the "final" array so that when we compare current star against previous
             #star, we are comparing against the previous start WITH the changed value from the diff rather than the orignal index value
-            tempStar = star - starRowIndexVals[int(counter2)-2]
+            tempStar = star - star_row_index_vals[int(counter2)-2]
             if tempStar < 0:
                 tempStar = int(tempStar) * -1
             shiftedAsciiStarValsEasy.append(tempStar)
@@ -116,14 +111,14 @@ if __name__ == '__main__':
 #hard way below
     shiftedAsciiStarVals = []
     counter3 = 0
-    for star in starRowIndexVals:
+    for star in star_row_index_vals:
         if(counter3 == 0):
             counter3 = counter3 + 1
             shiftedAsciiStarVals.append(star);
             continue
         elif(counter3 == 1):
             counter3 = counter3 + 1
-            tempStar = star - starRowIndexVals[int(counter3)-2]
+            tempStar = star - star_row_index_vals[int(counter3)-2]
             if tempStar < 0:
                 tempStar = int(tempStar) * -1
             shiftedAsciiStarVals.append(tempStar)
@@ -138,12 +133,11 @@ if __name__ == '__main__':
                 tempStar = int(tempStar) * -1
             shiftedAsciiStarVals.append(tempStar)
 
-
     print("shiftedAsciiStarVals are: " + str(shiftedAsciiStarVals))
 
     print("the final result...")
 
-    print("hard arry is: " + str(shiftedAsciiStarVals));
+    print("hard array is: " + str(shiftedAsciiStarVals))
 
     hardString=""
     for decyptedLetter in shiftedAsciiStarVals:
@@ -152,11 +146,19 @@ if __name__ == '__main__':
 
     print("hard string is: " + hardString );
 
-    print("easy arry is: " + str(shiftedAsciiStarValsEasy));
+    print("easy array is: " + str(shiftedAsciiStarValsEasy))
     easyString = ""
     for easyDecryptedLetter in shiftedAsciiStarValsEasy:
         print("decrypted easy letter list is: " + str(easyDecryptedLetter))
         easyString += chr(easyDecryptedLetter)
 
+    print("easy string is: " + easyString)
 
-    print("easy string is: " + easyString );
+
+def print_pixel_count(image_array):
+    pixel_counter = 0
+    for pixel in image_array:
+        pixel_counter = pixel_counter + 1
+        print("pixel: " + str(pixel))
+    print("pixel_counter finished at count: " + str(pixel_counter))
+    print(image_array)
